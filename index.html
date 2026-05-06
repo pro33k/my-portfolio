@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FKpro | Tech Portfolio 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1abc9c;
+            --primary-glow: rgba(26, 188, 156, 0.3);
+            --dark: #0a0a0a;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --light: #ffffff;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- Header --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(15px);
+            padding: 0 5%;
+            position: sticky;
+            top: 0;
+            z-index: 2000;
+            height: 80px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logo-area { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        
+        .logo-img { 
+            height: 42px; 
+            width: 42px; 
+            border-radius: 50%; 
+            border: 2px solid var(--primary); 
+            object-fit: cover;
+            background-color: var(--primary); 
+        }
+        
+        .logo-text { color: var(--light); font-weight: 700; font-size: 1.5rem; letter-spacing: -0.5px; }
+
+        .nav-links { display: flex; list-style: none; gap: 35px; }
+        .nav-links a { text-decoration: none; color: #ccc; font-weight: 500; transition: 0.3s; }
+        .nav-links a:hover { color: var(--primary); }
+
+        .hamburger { display: none; font-size: 2rem; cursor: pointer; color: white; background: none; border: none; }
+
+        /* --- Hero --- */
+        .hero { 
+            text-align: center; 
+            padding: 120px 20px 60px; 
+            background: radial-gradient(circle at center, #1abc9c10 0%, transparent 70%);
+        }
+        .hero h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1.1; margin-bottom: 20px; }
+        .typewriter { color: var(--primary); border-right: 3px solid var(--primary); padding-right: 5px; animation: blink 0.7s infinite; }
+        
+        @keyframes blink { 50% { border-color: transparent; } }
+
+        .profile-container { position: relative; display: inline-block; margin-top: 40px; }
+        .profile-pic { 
+            height: 200px; width: 200px; border-radius: 50%; 
+            border: 4px solid var(--primary); object-fit: cover;
+            box-shadow: 0 0 50px var(--primary-glow);
+        }
+
+        /* --- Marquee --- */
+        .marquee {
+            background: #111;
+            padding: 20px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            border-top: 1px solid #222;
+            border-bottom: 1px solid #222;
+        }
+        .marquee-content {
+            display: inline-block;
+            animation: scroll 25s linear infinite;
+        }
+        .marquee-content span {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 0 40px;
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+        /* --- Layout --- */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 5%; }
+        .section-title { text-align: center; padding: 100px 0 50px; font-size: 2.5rem; }
+        .section-title span { color: var(--primary); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+
+        /* --- Cards --- */
+        .card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: var(--transition);
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            background: rgba(255,255,255,0.08);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+        .card h3 { color: var(--primary); margin-bottom: 15px; }
+
+        /* --- Projects --- */
+        .project-card { position: relative; border-radius: 20px; overflow: hidden; height: 350px; border: 1px solid #222; }
+        .project-img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; }
+        .project-overlay {
+            position: absolute; inset: 0; background: rgba(26, 188, 156, 0.92);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            opacity: 0; transition: 0.4s; padding: 30px; text-align: center; color: #000;
+        }
+        .project-card:hover .project-overlay { opacity: 1; }
+        .project-card:hover .project-img { transform: scale(1.1); }
+
+        /* --- Footer & Contact --- */
+        .footer-cta { background: #0a0a0a; padding: 100px 0 50px; border-top: 1px solid #222; }
+        .contact-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 60px; }
+        
+        input, textarea { 
+            width: 100%; padding: 15px; margin-bottom: 20px; background: #151515; 
+            border: 1px solid #333; color: white; border-radius: 12px; outline: none; font-family: inherit;
+        }
+        input:focus, textarea:focus { border-color: var(--primary); }
+        
+        .btn-submit { 
+            background: var(--primary); color: #000; border: none; padding: 16px 32px; 
+            border-radius: 12px; font-weight: 700; cursor: pointer; width: 100%;
+            transition: var(--transition); text-transform: uppercase; letter-spacing: 1px;
+        }
+        .btn-submit:hover { transform: scale(1.02); box-shadow: 0 10px 20px var(--primary-glow); }
+
+        .copyright { text-align: center; margin-top: 80px; opacity: 0.4; font-size: 0.85rem; letter-spacing: 1px; }
+
+        @media (max-width: 992px) {
+            .hamburger { display: block; }
+            .nav-links {
+                position: fixed; top: 0; right: -100%; height: 100vh; width: 80%;
+                background: #0f0f0f; flex-direction: column; padding: 100px 40px; transition: 0.5s;
+                box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+            }
+            .nav-links.active { right: 0; }
+            .contact-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo-area">
+            <img src="image2.jpg" alt="FKpro Logo" class="logo-img">
+            <span class="logo-text">FKpro</span>
+        </a>
+        <button class="hamburger" id="menu-btn">☰</button>
+        <ul class="nav-links" id="nav-menu">
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#projects">Work</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </header>
+
+    <section class="hero" id="about">
+        <h1>Building for <br><span class="typewriter" id="typewriter"></span></h1>
+        <p style="opacity: 0.8; font-size: 1.1rem;">I transform complex ideas into high-performance digital realities.</p>
+        <div class="profile-container">
+            <img src="image3.jpg" alt="FKpro Developer" class="profile-pic">
+        </div>
+    </section>
+
+    <div class="marquee">
+        <div class="marquee-content">
+            <span>React.js</span> <span>Node.js</span> <span>Python</span> <span>AWS</span> 
+            <span>TypeScript</span> <span>Docker</span> <span>MongoDB</span> <span>Next.js</span>
+            <span>React.js</span> <span>Node.js</span> <span>Python</span> <span>AWS</span> 
+            <span>TypeScript</span> <span>Docker</span> <span>MongoDB</span> <span>Next.js</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="section-title" id="services">My <span>Expertise</span></h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Frontend Magic</h3>
+                <p>Crafting pixel-perfect, interactive UIs using React and Tailwind that convert visitors into users.</p>
+            </div>
+            <div class="card">
+                <h3>Scalable Backend</h3>
+                <p>Building secure APIs and microservices that handle heavy traffic without breaking a sweat.</p>
+            </div>
+            <div class="card">
+                <h3>Cloud Architecture</h3>
+                <p>Deploying resilient systems on AWS/Azure with automated CI/CD pipelines.</p>
+            </div>
+        </div>
+
+        <h2 class="section-title" id="projects">Featured <span>Work</span></h2>
+        <div class="grid">
+            <div class="project-card">
+                <img src="image2.jpg" class="project-img" alt="FinTech Dashboard">
+                <div class="project-overlay">
+                    <h3>FinTech Dashboard</h3>
+                    <p>Real-time data visualization and secure transaction handling.</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <img src="image1.jpg" class="project-img" alt="E-Commerce Engine">
+                <div class="project-overlay">
+                    <h3>E-Commerce Engine</h3>
+                    <p>High-speed headless commerce solution built with Next.js.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer-cta" id="contact">
+        <div class="container">
+            <div class="contact-grid">
+                <div>
+                    <h2 style="font-size: clamp(1.8rem, 5vw, 2.8rem); margin-bottom: 20px;">
+                        Let's launch your <span style="color:var(--primary)">next big idea.</span>
+                    </h2>
+                    
+                    <form action="https://formspree.io/f/mlgznoyk" method="POST">
+                        <input type="text" name="name" placeholder="Full Name" required>
+                        <input type="email" name="_replyto" placeholder="Email Address" required>
+                        <textarea name="message" rows="5" placeholder="Tell me about your project..." required></textarea>
+                        
+                        <input type="hidden" name="_subject" value="New Portfolio Inquiry!">
+                        
+                        <button type="submit" class="btn-submit">Send Proposal</button>
+                    </form>
+                </div>
+                
+                <div style="padding-top: 20px;">
+                    <h3 style="margin-bottom: 15px; color: var(--primary);">Socials</h3>
+                    <p style="margin-bottom: 25px; opacity: 0.7;">Currently available for remote projects and collaborations.</p>
+                    <div style="display: flex; gap: 25px;">
+                        <a href="#" style="color:var(--light); text-decoration:none; font-weight:600; border-bottom: 1px solid var(--primary);">GitHub</a>
+                        <a href="#" style="color:var(--light); text-decoration:none; font-weight:600; border-bottom: 1px solid var(--primary);">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+            <p class="copyright">© 2026 FKPRO DEVELOPMENT. ALL RIGHTS RESERVED.</p>
+        </div>
+    </footer>
+
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const navMenu = document.getElementById('nav-menu');
+        menuBtn.onclick = () => {
+            navMenu.classList.toggle('active');
+            menuBtn.innerHTML = navMenu.classList.contains('active') ? '✕' : '☰';
+        };
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.onclick = () => {
+                navMenu.classList.remove('active');
+                menuBtn.innerHTML = '☰';
+            };
+        });
+
+        const textElement = document.getElementById('typewriter');
+        const phrases = ["the Tech Future.", "Modern Businesses.", "Innovative Startups.", "Scalable Solutions."];
+        let i = 0; let j = 0; let currentPhrase = []; let isDeleting = false;
+
+        function loop() {
+            textElement.innerHTML = currentPhrase.join('');
+            if (i < phrases.length) {
+                if (!isDeleting && j <= phrases[i].length) {
+                    currentPhrase.push(phrases[i][j]); j++;
+                }
+                if (isDeleting && j <= phrases[i].length) {
+                    currentPhrase.pop(); j--;
+                }
+                if (j == phrases[i].length) { isDeleting = true; }
+                if (isDeleting && j === 0) {
+                    currentPhrase = []; isDeleting = false; i++;
+                    if (i == phrases.length) i = 0;
+                }
+            }
+            setTimeout(loop, isDeleting ? 60 : 120);
+        }
+        loop();
+    </script>
+</body>
+</html>
